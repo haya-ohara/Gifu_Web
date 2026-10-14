@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/card.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <!-- ヘッダー終了 -->
+
+  <!-- 各カードのパネル -->
+  <div class="card-list">
+    <div class="card-panel">
+      <div class="card-img"></div>
+      <p class="card-subtitle">テンプレート</p>
+
+      <!-- カードの詳細を入力 -->
+      <div class="card-detail hidden">
+        <h2>詳細情報</h2>
+        <p>詳細情報を記入してください。</p>
+      </div>
+    </div>
+    <div class="card-panel">
+      <div class="card-detail"></div>
+    </div>
+    <div class="card-panel">
+      <div class="card-detail"></div>
+    </div>
+    <div class="card-panel">
+      <div class="card-detail"></div>
+    </div>
+  </div>
+
+  <!-- カードの詳細を表示 -->
+  <div id="card-info" class="hidden">
+    <div class="background"></div>
+    <div class="card-container"></div>
+  </div>
+
+  <script src="js/card.js"></script>
+</body>
+</html>
