@@ -14,6 +14,8 @@ cardList.forEach(panel => {
       copiedDetail = detail.cloneNode(true)
       copiedDetail.classList.remove("hidden")
       cardContainer.appendChild(copiedDetail)
+
+      document.body.style.overflow = "hidden"
     }
   })
 });
@@ -21,4 +23,6 @@ cardList.forEach(panel => {
 cardInfoBackground.addEventListener("click", ()=>{
   cardInfo.classList.add("hidden")
   cardContainer.replaceChildren()
+  
+  document.body.style.overflow = ""
 })

@@ -1,0 +1,8 @@
+#card1 .card-img{
+  background-image: url(../img/岐阜の絶景グルメ\ 肉と麺.png);
+}
+
+.card-panel{
+  border: 5px solid #883700;
+  background-color: #ffe6c684;
+}
