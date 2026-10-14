@@ -1,22 +1,46 @@
 .header {
-    background-color: aquamarine;
+    background: linear-gradient(45deg,#d87979,#ee8e3f,#c8cec6);
+    background-size: 300% 300%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    min-height: 120px;
+    animation: rainbowMove 10s linear infinite;
+}
+
+@keyframes rainbowMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
 }
 
 .header_img {
     width: 280px;        
     height: 100px;      
-    margin: 8px;
     object-fit: cover;   
-    border-radius: 50%;  
+    border-radius: 10px;  
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.header_nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.nav-link {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.nav-link[href="#meat"] {
+    left: 30px;
+}
+
+.nav-link[href="#noodles"] {
+    right: 30px;
 }
 
 #slide {
