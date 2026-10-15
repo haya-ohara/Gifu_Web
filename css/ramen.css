@@ -1,13 +1,21 @@
 main{
   margin: 0% 10%;
-  /* padding: 20%; */
+}
+
+#main-section{
+  margin-bottom: 100px;
+}
+
+#main-section img{
+  max-width: 100%;
 }
 
 #card1 .card-img{
-  background-image: url(../img/岐阜の絶景グルメ\ 肉と麺.png);
+  background-image: url(../img/岐阜タンメン.jpg);
+  background-size: cover;
 }
 
 .card-panel{
-  border: 5px solid #883700;
+  border: 5px solid #000000;
   background-color: #ffe6c684;
 }
