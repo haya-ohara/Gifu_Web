@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/card.css">
+  <link rel="stylesheet" href="css/ramen.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+   
+  <header class="header">
+
+    <a href="#meat" class="nav-link">飛騨牛料理</a>
+
+      <img 
+      class="header_img" 
+      src="img/111.png"
+      alt="岐阜のグルメ紹介"
+      >
+
+    <a href="#noodles" class="nav-link">岐阜ラーメン</a>
+
+  </header>
+  <!-- ヘッダー終了 -->
+
+  <!-- 各カードのパネル -->
+  <main>
+    <div class="card-list">
+      <div id="card1" class="card-panel">
+        <div class="card-img"></div>
+        <div class="subtitle-container">
+          <p class="subtitle">テンプレート</p>
+        </div>
+
+        <!-- カードの詳細を入力 -->
+        <div class="card-detail hidden">
+          <h2>詳細情報</h2>
+          <p>詳細情報を記入してください。</p>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+          <h2>詳細情報</h2>
+        </div>
+      </div>
+      <div id="card2" class="card-panel">
+        <div class="card-detail hidden"></div>
+      </div>
+      <div id="card3" class="card-panel">
+        <div class="card-detail hidden"></div>
+      </div>
+      <div id="card4" class="card-panel">
+        <div class="card-detail hidden"></div>
+      </div>
+    </div>
+
+    <!-- カードの詳細を表示 -->
+    <div id="card-info" class="hidden">
+      <div class="background"></div>
+      <div class="card-container"></div>
+    </div>
+  </main>
+
+  <script src="js/card.js"></script>
+</body>
+</html>

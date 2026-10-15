@@ -1,8 +1,14 @@
 
 const images = [
+<<<<<<< HEAD
     "./img/岐阜の絶景グルメ 肉と麺.png",
     "./img/gourmet2.png",
     "./img/gourmet3.png"
+=======
+  "img/岐阜の絶景グルメ 肉と麺.png",
+  "img/gourmet2.png",
+  "img/gourmet3.png"
+>>>>>>> 0bdf7d0fa5b9ca5e2cbfc5cd943f84efcacac292
 ];
 
 const texts = [

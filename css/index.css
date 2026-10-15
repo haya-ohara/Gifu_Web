@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .header {
     background: #000000;
 
@@ -38,6 +39,8 @@ body {
 .nav-link[href="#noodles"] {
     justify-content: flex-end;
 }
+=======
+>>>>>>> 0bdf7d0fa5b9ca5e2cbfc5cd943f84efcacac292
 
 #slide {
     width: 100%;
