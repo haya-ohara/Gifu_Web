@@ -1,3 +1,8 @@
+main{
+  margin: 0% 10%;
+  /* padding: 20%; */
+}
+
 #card1 .card-img{
   background-image: url(../img/岐阜の絶景グルメ\ 肉と麺.png);
 }
