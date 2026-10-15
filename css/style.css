@@ -3,7 +3,7 @@ body{
 }
 
 .header {
-    background: linear-gradient(45deg,#d87979,#ee8e3f,#c8cec6);
+    background: black;
     background-size: 300% 300%;
     display: flex;
     justify-content: space-between;
