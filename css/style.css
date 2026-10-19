@@ -39,11 +39,11 @@ body{
     text-decoration: none;
 }
 
-.nav-link[href="#meat"] {
+.nav-link[href="beef.html"] {
     left: 30px;
 }
 
-.nav-link[href="#noodles"] {
+.nav-link[href="ramen.html"] {
     right: 30px;
 }
 
