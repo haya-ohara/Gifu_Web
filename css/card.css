@@ -5,6 +5,7 @@
   padding: 10px;
   gap: 30px;
   border-radius: 10px;
+  border: 1px solid;
 }
 
 .card-detail img{
@@ -13,13 +14,14 @@
 
 .card-panel{
   position: relative;
-  width: 300px;
-  height: 300px;
+  /* width: 300px;
+  height: 300px; */
+  flex: 0 0 calc((100% - 90px) / 3);
+  aspect-ratio: 1;
   border-radius: 10px;
   overflow: hidden;
   opacity: 1;
   box-shadow: 0 0 0px #00000055;
-  /* transform: scale(1); */
   bottom: 0;
   transition: opacity box-shadow bottom;
   transition-duration: 0.4s;
@@ -28,7 +30,6 @@
 .card-panel:hover{
   opacity: 0.7;
   box-shadow: 0 10px 10px #00000078;
-  /* transform: scale(1.05); */
   bottom: 5px;
 }
 
