@@ -46,3 +46,15 @@ body{
 .nav-link[href="#noodles"] {
     right: 30px;
 }
+
+.meat {
+    width: 220px;
+    height: auto;
+    max-width: 100%;
+}
+
+.noodles {
+    width: 220px;
+    height: auto;
+    max-width: 100%;
+}
