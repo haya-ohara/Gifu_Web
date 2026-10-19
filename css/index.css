@@ -7,18 +7,6 @@
     overflow: hidden;
 }
 
-.meat {
-    width: 220px;
-    height: auto;
-    max-width: 100%;
-}
-
-.noodles {
-    width: 220px;
-    height: auto;
-    max-width: 100%;
-}
-
 .slide-content {
     width: 100%;
     height: 100%;
