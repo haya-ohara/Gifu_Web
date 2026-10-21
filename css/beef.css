@@ -1,0 +1,46 @@
+main{
+  margin: 0% 10%;
+}
+
+#main-section{
+  margin-bottom: 100px;
+}
+
+#main-section img{
+  max-width: 100%;
+}
+
+#card1 .card-img{
+  background-image: url(/img/beefsp.jpg);
+  background-size: cover;
+}
+
+#card2 .card-img{
+  background-image: url(/img/sushi.jpg);
+  background-size: cover;
+}
+
+#card3 .card-img{
+  background-image: url(/img/sukiyaki.jpg);
+  background-size: cover;
+}
+
+#card4 .card-img{
+  background-image: url(/img/朴葉味噌で焼く飛騨牛ステーキ.png);
+  background-size: cover;
+}
+
+#card5 .card-img{
+  background-image: url(/img/とろける肉じゃがコロッケ割り.png);
+  background-size: cover;
+}
+
+#card6 .card-img{
+  background-image: url(/img/香ばし和牛ステーキ丼.png);
+  background-size: cover;
+}
+
+.card-panel{
+  border: 5px solid #000000;
+  background-color: #ffe6c684;
+}
