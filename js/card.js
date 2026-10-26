@@ -31,6 +31,9 @@ cardList.forEach(panel => {
 
       document.body.style.overflow = "hidden"
 
+      // スクロール位置を初期化
+      cardContainer.scrollTo(0,0)
+
       animateObject(cardInfo, 0, 1, 0.3)
     }
   })
