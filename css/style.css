@@ -2,15 +2,15 @@ body{
   margin: 0;
 }
 
-.header {
-    background: black;
-    background-size: 300% 300%;
+header {
+    background-image: url(../img/ヘッダー背景.jpeg);
+    background-size: 50%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
     min-height: 120px;
-    animation: rainbowMove 10s linear infinite;
+    animation: rainbowMove 60s linear infinite;
 }
 
 @keyframes rainbowMove {
@@ -37,6 +37,20 @@ body{
     font-weight: bold;
     color: black;
     text-decoration: none;
+
+    animation: transY 3s ease-in-out infinite;
+}
+
+@keyframes transY{
+    0%{
+        transform: translateY(-45%);
+    }
+    50%{
+        transform: translateY(-55%);
+    }
+    100%{
+        transform: translateY(-45%);
+    }
 }
 
 .nav-link[href="beef.html"] {
