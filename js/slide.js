@@ -1,7 +1,7 @@
 
 const images = [
     "img/岐阜の絶景グルメ 肉と麺.png",
-    "img/つけ麺.jpg",
+    "img/朴葉味噌で焼く飛騨牛ステーキ.png",
     "img/ラーメントップ画像.jpg"
 ];
 
