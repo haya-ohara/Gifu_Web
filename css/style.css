@@ -11,6 +11,7 @@ header {
     position: relative;
     min-height: 120px;
     animation: rainbowMove 60s linear infinite;
+    z-index: 10;
 }
 
 @keyframes rainbowMove {
@@ -41,6 +42,31 @@ header {
     animation: transY 3s ease-in-out infinite;
 }
 
+/* .nav-link::before{
+    content: "";
+    position: absolute;
+    background-image: url(../img/shining.png);
+    display: inline-block;
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    z-index: -1;
+    animation: rotation 3s linear infinite;
+} */
+
+@keyframes rotation{
+    0%{
+        transform: rotate(0) scale(1);
+    }
+    50%{
+        transform: rotate(180deg) scale(1.4);
+    }
+    100%{
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+
 @keyframes transY{
     0%{
         transform: translateY(-45%);
@@ -57,8 +83,36 @@ header {
     left: 30px;
 }
 
+.nav-link[href="beef.html"]::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-image: url(../img/shining.png);
+    background-size: cover;
+    left: 80px;
+    top: -40px;
+    width: 150px;
+    height: 150px;
+    z-index: -1;
+    animation: rotation 6s linear infinite;
+}
+
 .nav-link[href="ramen.html"] {
     right: 30px;
+}
+
+.nav-link[href="ramen.html"]::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-image: url(../img/shining.png);
+    background-size: cover;
+    top: -15px;
+    left: -10px;
+    width: 150px;
+    height: 150px;
+    z-index: -1;
+    animation: rotation 6s linear infinite;
 }
 
 .meat {
