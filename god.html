@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ぎふごちそうポン！｜飛騨牛とラーメンの合体パズル</title>
+  <style>
+    :root{font-family:"Yu Gothic",Meiryo,sans-serif;color:#3c342d;background:#e8f4d8;font-synthesis:none}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#fff9d8 0,#e5f2d1 45%,#b8d9bc 100%)}
+    .page{width:min(100% - 28px,1000px);margin:auto;padding:22px 0 36px}
+    header{text-align:center;margin-bottom:17px}
+    h1{margin:0;color:#8d472a;font-size:clamp(24px,4vw,39px);letter-spacing:.04em;text-shadow:0 2px #fff}
+    header p{margin:5px 0 0;color:#55745b;font-weight:700}
+    .layout{display:grid;grid-template-columns:minmax(300px,430px) minmax(220px,1fr);gap:18px;align-items:start;justify-content:center}
+    .game-card,.side-card{border:3px solid #fff;border-radius:18px;background:#fffdf4;box-shadow:0 8px 0 #8cb98d,0 15px 28px #476d4430}
+    .game-card{padding:12px}
+    .scorebar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px;text-align:center}
+    .scorebox{padding:7px 3px;border-radius:10px;background:#f4e9c9;color:#765332;font-size:12px;font-weight:700}
+    .scorebox b{display:block;margin-top:2px;color:#43352d;font-size:19px}
+    .scorebox.next b{font-size:23px}
+    .board-wrap{position:relative;width:100%;border:4px solid #82613f;border-radius:13px;overflow:hidden;background:#d8eedc}
+    canvas{display:block;width:100%;height:auto;touch-action:none}
+    .actions{display:flex;justify-content:center;gap:9px;margin-top:10px}
+    button{border:0;border-radius:10px;padding:10px 20px;background:#ef8b49;color:#fff;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 4px 0 #bf6132}
+    button:hover{background:#fa9c5b;transform:translateY(-1px)}
+    button:focus-visible{outline:3px solid #3c78a0;outline-offset:3px}
+    .side-card{padding:16px}
+    .side-card h2{margin:0 0 10px;color:#8d472a;font-size:20px}
+    .evolution{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+    .evolution li{display:grid;grid-template-columns:29px 35px 1fr;align-items:center;min-height:39px;padding:4px 8px;border-radius:10px;background:#f5f0df;font-weight:700;font-size:13px}
+    .evolution li.active{background:#ffe1a0;box-shadow:inset 0 0 0 2px #edaa4e}
+    .evolution .num{color:#a27b49;font-size:11px}
+    .evolution .emoji{font-size:24px;text-align:center}
+    .howto{margin:15px 0 0;padding:12px;border-radius:12px;background:#e9f4e4;color:#486a50;font-size:13px;line-height:1.8}
+    .howto strong{color:#31573a}
+    .status{min-height:22px;margin:8px 2px 0;text-align:center;color:#62805c;font-size:12px;font-weight:700}
+    .overlay{position:absolute;inset:0;display:grid;place-items:center;padding:18px;background:#36583ec9;text-align:center}
+    .overlay[hidden]{display:none}
+    .modal{width:min(100%,310px);padding:20px 18px;border:4px solid #fff5d7;border-radius:17px;background:#fffdf1;box-shadow:0 7px 0 #c78342}
+    .modal h2{margin:0 0 8px;color:#a44f2b;font-size:25px}
+    .modal p{margin:0 0 15px;line-height:1.75;font-size:14px}
+    .modal .hero{font-size:42px;line-height:1.2}
+    @media(max-width:700px){.layout{grid-template-columns:minmax(0,430px);justify-content:center}.side-card{order:2}.evolution{grid-template-columns:1fr 1fr}.side-card h2{text-align:center}}
+    @media(max-width:390px){.page{width:min(100% - 16px,1000px);padding-top:14px}.game-card{padding:8px}.scorebox{font-size:10px}.scorebox b{font-size:16px}.evolution{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header><h1>ぎふごちそうポン！</h1><p>飛騨牛と岐阜ラーメンの合体パズル</p></header>
+    <div class="layout">
+      <section class="game-card" aria-label="ゲーム">
+        <div class="scorebar">
+          <div class="scorebox">スコア<b id="score">0</b></div>
+          <div class="scorebox">ベスト<b id="best">0</b></div>
+          <div class="scorebox next">つぎ<b id="next">🥔</b></div>
+        </div>
+        <div class="board-wrap">
+          <canvas id="game" width="420" height="600" aria-label="食べ物を落として合体させるゲーム"></canvas>
+          <div class="overlay" id="overlay">
+            <div class="modal"><div class="hero">🍜✨</div><h2 id="modalTitle">ぎふごちそうポン！</h2><p id="modalText">食べ物を落として、同じもの同士を合体！<br>究極の飛騨牛ラーメンを目指そう。</p><button id="mainButton">ゲームスタート</button></div>
+          </div>
+        </div>
+        <div class="actions"><button id="restart" type="button">↻ リスタート</button></div>
+        <div class="status" id="status" aria-live="polite">マウスで位置を決めてクリック！</div>
+      </section>
+      <aside class="side-card">
+        <h2>🍴 ごちそう進化図</h2>
+        <ol class="evolution" id="evolution"></ol>
+        <div class="howto"><strong>あそびかた</strong><br>1. マウスを左右に動かして落とす位置を決めます。<br>2. クリックで食べ物をポン！<br>3. 同じ食べ物が触れると合体して進化。<br>4. 食べ物が上まであふれないようにしよう！</div>
+      </aside>
+    </div>
+  </main>
+  <script>
+  (()=>{
+    "use strict";
+    const canvas=document.getElementById("game"),ctx=canvas.getContext("2d");
+    const W=canvas.width,H=canvas.height,LEFT=18,RIGHT=W-18,TOP=48,FLOOR=H-20;
+    const foods=[
+      {name:"飛騨牛コロッケ",short:"コロッケ",emoji:"🥔",color:"#f2c45f",r:19,points:10},
+      {name:"高山ラーメン",short:"高山麺",emoji:"🍜",color:"#f6a85f",r:26,points:20},
+      {name:"飛騨牛串焼き",short:"串焼き",emoji:"🍢",color:"#e98b68",r:32,points:40},
+      {name:"飛騨牛ステーキ",short:"ステーキ",emoji:"🥩",color:"#e87571",r:39,points:80},
+      {name:"飛騨牛ラーメン",short:"牛ラーメン",emoji:"🍜",color:"#d27abb",r:46,points:160},
+      {name:"朴葉みそ焼き",short:"朴葉みそ",emoji:"🍃",color:"#78b86b",r:52,points:320},
+      {name:"飛騨牛にぎり",short:"牛にぎり",emoji:"🍣",color:"#e9898f",r:58,points:640},
+      {name:"飛騨牛御膳",short:"牛御膳",emoji:"🍱",color:"#9b78c6",r:64,points:1280},
+      {name:"究極の飛騨牛ラーメン",short:"究極麺",emoji:"👑",color:"#ffd34e",r:71,points:2560}
+    ];
+    document.getElementById("evolution").innerHTML=foods.map((f,i)=>`<li id="food-${i}"><span class="num">${i+1}</span><span class="emoji">${f.emoji}</span><span>${f.name}</span></li>`).join("");
+    const scoreEl=document.getElementById("score"),bestEl=document.getElementById("best"),nextEl=document.getElementById("next"),statusEl=document.getElementById("status"),overlay=document.getElementById("overlay");
+    let best=0;try{best=Number(localStorage.getItem("gifuFoodBest")||0)}catch(_){best=0}bestEl.textContent=best;
+    let balls=[],particles=[],score=0,playing=false,gameOver=false,aimX=W/2,nextType=0,overTimer=0,lastTime=0,accumulator=0;
+    const STEP=1/120,GRAVITY=1500,MAX_SPEED=1000;
+    const randType=()=>Math.random()<.78?Math.floor(Math.random()*3):Math.floor(Math.random()*4);
+    function setNext(){nextType=randType();nextEl.textContent=foods[nextType].emoji;}
+    function start(){balls=[];particles=[];score=0;scoreEl.textContent="0";playing=true;gameOver=false;overTimer=0;setNext();overlay.hidden=true;statusEl.textContent="マウスで位置を決めてクリック！";lastTime=performance.now();}
+    function endGame(){if(gameOver)return;gameOver=true;playing=false;statusEl.textContent="ゲームオーバー！リスタートしてもう一度！";document.getElementById("modalTitle").textContent="ゲームオーバー！";document.getElementById("modalText").innerHTML=`スコア：<strong>${score}</strong><br>料理が容器からあふれちゃった！`;document.getElementById("mainButton").textContent="もう一度あそぶ";overlay.hidden=false;}
+    function updateBest(){if(score>best){best=score;bestEl.textContent=best;try{localStorage.setItem("gifuFoodBest",String(best))}catch(_){}}}
+    function drop(){if(!playing||gameOver)return;const f=foods[nextType],r=f.r;const x=Math.max(LEFT+r,Math.min(RIGHT-r,aimX));balls.push({x,y:TOP+r+1,vx:0,vy:35,r,type:nextType,settled:false,merge:false,life:0});setNext();statusEl.textContent="ぽんっ！次の料理を選ぼう";}
+    function pointerX(e){const rect=canvas.getBoundingClientRect();return (e.clientX-rect.left)*W/rect.width;}
+    canvas.addEventListener("pointermove",e=>{aimX=pointerX(e);});
+    canvas.addEventListener("pointerdown",e=>{if(e.button!==0)return;e.preventDefault();aimX=pointerX(e);drop();});
+    document.getElementById("mainButton").addEventListener("click",start);
+    document.getElementById("restart").addEventListener("click",()=>{start();});
+    window.addEventListener("keydown",e=>{if(e.key===" "&&playing){e.preventDefault();drop();}});
+    function addBurst(x,y,color){for(let i=0;i<12;i++){const a=Math.random()*Math.PI*2,s=60+Math.random()*170;particles.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.5+Math.random()*.35,max:.85,color,r:2+Math.random()*3});}}
+    function addScore(n){score+=n;scoreEl.textContent=score;updateBest();}
+    function physics(dt){
+      // まず各ボールを重力で動かし、床と左右の壁で反発させる。
+      for(const b of balls){b.life+=dt;b.vy=Math.min(MAX_SPEED,b.vy+GRAVITY*dt);b.x+=b.vx*dt;b.y+=b.vy*dt;b.vx*=Math.pow(.993,dt*60);
+        if(b.x-b.r<LEFT){b.x=LEFT+b.r;b.vx=Math.abs(b.vx)*.35}if(b.x+b.r>RIGHT){b.x=RIGHT-b.r;b.vx=-Math.abs(b.vx)*.35}
+        if(b.y+b.r>FLOOR){b.y=FLOOR-b.r;b.vy=-Math.abs(b.vy)*.12;if(Math.abs(b.vy)<32){b.vy=0;b.settled=true;b.vx*=.88}}
+      }
+      // 円同士の重なりを押し戻し、法線方向の速度に反発と摩擦を加える。
+      for(let pass=0;pass<3;pass++)for(let i=0;i<balls.length;i++)for(let j=i+1;j<balls.length;j++){
+        const a=balls[i],b=balls[j];if(a.merge||b.merge)continue;
+        let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),min=a.r+b.r;
+        if(d===0){dx=.01;d=.01}if(d>=min)continue;
+        const nx=dx/d,ny=dy/d,overlap=min-d;
+        // 接触直後に同種類のペアを予約し、同じボールを二度合体させない。
+        if(a.type===b.type&&a.type<foods.length-1){a.merge=b.merge=true;balls.push({x:(a.x+b.x)/2,y:(a.y+b.y)/2,vx:(a.vx+b.vx)/2,vy:(a.vy+b.vy)/2,r:foods[a.type+1].r,type:a.type+1,settled:false,merge:false,life:0,glow:.45});addBurst((a.x+b.x)/2,(a.y+b.y)/2,foods[a.type+1].color);addScore(foods[a.type+1].points);continue;}
+        const invA=a.merge?0:(a.settled?0.28:0.5),invB=b.merge?0:(b.settled?0.28:0.5),sum=invA+invB;if(sum===0)continue;
+        a.x-=nx*overlap*invA/sum;a.y-=ny*overlap*invA/sum;b.x+=nx*overlap*invB/sum;b.y+=ny*overlap*invB/sum;
+        const rvx=b.vx-a.vx,rvy=b.vy-a.vy,along=rvx*nx+rvy*ny;
+        if(along<0){const impulse=-(1+.12)*along/sum,ix=impulse*nx,iy=impulse*ny;a.vx-=ix*invA;a.vy-=iy*invA;b.vx+=ix*invB;b.vy+=iy*invB;
+          const tx=-ny,ty=nx,tangent=(rvx*tx+rvy*ty),friction=Math.max(-Math.abs(impulse)*.12,Math.min(Math.abs(impulse)*.12,tangent/sum));a.vx+=tx*friction*invA;a.vy+=ty*friction*invA;b.vx-=tx*friction*invB;b.vy-=ty*friction*invB;}
+        if(Math.abs(a.vy)<35&&a.y+a.r>=FLOOR-2)a.settled=true;if(Math.abs(b.vy)<35&&b.y+b.r>=FLOOR-2)b.settled=true;
+      }
+      // 合体した親を取り除くのは衝突処理後に行う。
+      balls=balls.filter(b=>!b.merge);
+      // 落下待ちの料理が一段落したら次を落とせる。一定時間、上限線より上に
+      // ボールが残ったときだけゲームオーバーにする。
+      const highest=balls.some(b=>b.y-b.r<TOP);
+      if(highest){overTimer+=dt;if(overTimer>1.35)endGame()}else overTimer=0;
+      for(const p of particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=260*dt;p.vx*=.98}
+      particles=particles.filter(p=>p.life>0);
+    }
+    function roundedRect(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);}
+    function drawBall(b){const f=foods[b.type];ctx.save();ctx.translate(b.x,b.y);
+      // ふんわりした影と、種類ごとの色で丸い食べ物を描く。
+      ctx.shadowColor=f.color;ctx.shadowBlur=b.glow?22:8;ctx.fillStyle=f.color;ctx.beginPath();ctx.arc(0,0,b.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      ctx.strokeStyle="#ffffffb8";ctx.lineWidth=3;ctx.stroke();ctx.fillStyle="#ffffff66";ctx.beginPath();ctx.ellipse(-b.r*.32,-b.r*.42,b.r*.25,b.r*.12,-.55,0,Math.PI*2);ctx.fill();
+      ctx.font=`${Math.max(16,b.r*.92)}px "Apple Color Emoji","Segoe UI Emoji",sans-serif`;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(f.emoji,0,-b.r*.1);
+      ctx.font=`bold ${Math.max(7,Math.min(11,b.r*.25))}px sans-serif`;ctx.fillStyle="#573f32";ctx.fillText(f.short,0,b.r*.57);
+      ctx.restore();if(b.glow)b.glow=Math.max(0,b.glow-.016);
+    }
+    function render(now){
+      ctx.clearRect(0,0,W,H);
+      // 岐阜の山並みと若葉色の空をCanvasで描く。
+      const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,"#d8f2eb");sky.addColorStop(1,"#eef4cf");ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+      ctx.fillStyle="#a9d4b1";ctx.beginPath();ctx.moveTo(0,145);ctx.lineTo(62,68);ctx.lineTo(112,135);ctx.lineTo(182,45);ctx.lineTo(254,144);ctx.lineTo(326,73);ctx.lineTo(420,150);ctx.lineTo(420,H);ctx.lineTo(0,H);ctx.fill();
+      ctx.fillStyle="#8dbb94";ctx.beginPath();ctx.moveTo(0,180);ctx.lineTo(90,112);ctx.lineTo(164,178);ctx.lineTo(260,102);ctx.lineTo(350,184);ctx.lineTo(420,128);ctx.lineTo(420,H);ctx.lineTo(0,H);ctx.fill();
+      // 容器の内側と危険ラインを描画。
+      ctx.fillStyle="#fff9e8";ctx.fillRect(LEFT,TOP,RIGHT-LEFT,FLOOR-TOP);ctx.save();ctx.beginPath();ctx.rect(LEFT,TOP,RIGHT-LEFT,FLOOR-TOP);ctx.clip();
+      ctx.fillStyle="#f4e6c5";ctx.fillRect(LEFT,FLOOR,RIGHT-LEFT,H-FLOOR);
+      ctx.setLineDash([7,6]);ctx.strokeStyle="#ef8065";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(LEFT,TOP);ctx.lineTo(RIGHT,TOP);ctx.stroke();ctx.setLineDash([]);
+      if(playing&&!gameOver){const f=foods[nextType];const x=Math.max(LEFT+f.r,Math.min(RIGHT-f.r,aimX));ctx.globalAlpha=.35;ctx.fillStyle=f.color;ctx.beginPath();ctx.arc(x,TOP+f.r+1,f.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=.55;ctx.strokeStyle="#865d3b";ctx.setLineDash([4,5]);ctx.beginPath();ctx.moveTo(x,TOP+f.r*2);ctx.lineTo(x,FLOOR);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;}
+      balls.forEach(drawBall);
+      for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.max);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;ctx.restore();
+      // 容器の縁を前面に重ね、器の形をはっきり見せる。
+      ctx.strokeStyle="#82613f";ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(LEFT,TOP);ctx.lineTo(LEFT,FLOOR);ctx.lineTo(RIGHT,FLOOR);ctx.lineTo(RIGHT,TOP);ctx.stroke();
+      if(overTimer>0&&playing){ctx.fillStyle="#bd543f";ctx.font="bold 12px sans-serif";ctx.textAlign="center";ctx.fillText("あふれ注意！",W/2,TOP-12)}
+    }
+    function frame(now){if(!lastTime)lastTime=now;const elapsed=Math.min((now-lastTime)/1000,.05);lastTime=now;if(playing){accumulator+=elapsed;while(accumulator>=STEP){physics(STEP);accumulator-=STEP}}render(now);requestAnimationFrame(frame)}
+    setNext();render(0);requestAnimationFrame(frame);
+  })();
+  </script>
+</body>
+</html>
