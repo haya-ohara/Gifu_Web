@@ -12,6 +12,8 @@ header {
     min-height: 120px;
     animation: rainbowMove 60s linear infinite;
     z-index: 10;
+
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 90%, rgba(0, 0, 0, 0) 100%);
 }
 
 @keyframes rainbowMove {
@@ -33,37 +35,12 @@ header {
 .nav-link {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     font-size: 32px;
     font-weight: bold;
     color: black;
     text-decoration: none;
 
     animation: transY 3s ease-in-out infinite;
-}
-
-/* .nav-link::before{
-    content: "";
-    position: absolute;
-    background-image: url(../img/shining.png);
-    display: inline-block;
-    background-size: cover;
-    width: 150px;
-    height: 150px;
-    z-index: -1;
-    animation: rotation 3s linear infinite;
-} */
-
-@keyframes rotation{
-    0%{
-        transform: rotate(0) scale(1);
-    }
-    50%{
-        transform: rotate(180deg) scale(1.4);
-    }
-    100%{
-        transform: rotate(360deg) scale(1);
-    }
 }
 
 
@@ -89,8 +66,8 @@ header {
     position: absolute;
     background-image: url(../img/shining.png);
     background-size: cover;
-    left: 80px;
-    top: -40px;
+    left: 60px;
+    top: -45px;
     width: 150px;
     height: 150px;
     z-index: -1;
@@ -107,22 +84,42 @@ header {
     position: absolute;
     background-image: url(../img/shining.png);
     background-size: cover;
-    top: -15px;
-    left: -10px;
+    top: -20px;
+    left: -20px;
     width: 150px;
     height: 150px;
     z-index: -1;
     animation: rotation 6s linear infinite;
 }
 
-.meat {
-    width: 220px;
-    height: auto;
-    max-width: 100%;
+@keyframes rotation{
+    0%{
+        transform: rotate(0) scale(1);
+    }
+    50%{
+        transform: rotate(180deg) scale(1.4);
+    }
+    100%{
+        transform: rotate(360deg) scale(1);
+    }
 }
 
-.noodles {
-    width: 220px;
+.meat, .noodles {
+    width: 190px;
     height: auto;
     max-width: 100%;
+    transition: transform 0.5s,
+    filter 0.5s;
+}
+
+.meat:hover, .noodles:hover{
+    transform: scale(1.1);
+}
+
+.meat:hover{
+    filter: drop-shadow(-15px 0 10px #cc614e)
+}
+
+.noodles:hover{
+    filter: drop-shadow(15px 0 10px #ffe18f)
 }
