@@ -43,7 +43,7 @@ function changeSlide(newIndex) {
             opacity:[1,0]
         }
         const option = {
-            duration: 1000,
+            duration: 700,
         }
 
         slideImage2.src = images[index];
@@ -59,7 +59,7 @@ function changeSlide(newIndex) {
             }else slideLink.href = links[index]
         })
 
-    }, 1000);
+    }, 700);
 }
 
 function nextSlide() {
@@ -73,4 +73,4 @@ function prevSlide() {
 document.getElementById("next").addEventListener("click", nextSlide);
 document.getElementById("prev").addEventListener("click", prevSlide);
 
-setInterval(nextSlide, 5000);
+setInterval(nextSlide, 3500);
