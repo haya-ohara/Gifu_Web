@@ -22,6 +22,7 @@ let index = 0;
 const slideImage = document.getElementById("slide-image");
 const slideImage2 = document.getElementById("slide-image2");
 const slideText = document.getElementById("slide_text");
+const slideLink = document.getElementById("slide-link")
 
 let isChanging = false;
 
@@ -52,6 +53,10 @@ function changeSlide(newIndex) {
             slideImage.src = images[index];
             slideText.textContent = texts[index];
             isChanging = false
+
+            if (index == 0) {
+                slideLink.removeAttribute("href")
+            }else slideLink.href = links[index]
         })
 
     }, 1000);
