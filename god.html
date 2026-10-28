@@ -119,6 +119,16 @@
         if(d===0){dx=.01;d=.01}if(d>=min)continue;
         const nx=dx/d,ny=dy/d,overlap=min-d;
         // 接触直後に同種類のペアを予約し、同じボールを二度合体させない。
+        // 最終料理同士が触れた場合は、両方を消してボーナス得点を加える。
+        if(a.type===b.type&&a.type===foods.length-1){
+          a.merge=b.merge=true;
+          const mergeX=(a.x+b.x)/2,mergeY=(a.y+b.y)/2;
+          addBurst(mergeX,mergeY,"#fff16b");
+          addBurst(mergeX,mergeY,foods[a.type].color);
+          addScore(foods[a.type].points*2);
+          statusEl.textContent="究極完成！ごちそうが光になって消えた！";
+          continue;
+        }
         if(a.type===b.type&&a.type<foods.length-1){a.merge=b.merge=true;balls.push({x:(a.x+b.x)/2,y:(a.y+b.y)/2,vx:(a.vx+b.vx)/2,vy:(a.vy+b.vy)/2,r:foods[a.type+1].r,type:a.type+1,settled:false,merge:false,life:0,glow:.45});addBurst((a.x+b.x)/2,(a.y+b.y)/2,foods[a.type+1].color);addScore(foods[a.type+1].points);continue;}
         const invA=a.merge?0:(a.settled?0.28:0.5),invB=b.merge?0:(b.settled?0.28:0.5),sum=invA+invB;if(sum===0)continue;
         a.x-=nx*overlap*invA/sum;a.y-=ny*overlap*invA/sum;b.x+=nx*overlap*invB/sum;b.y+=ny*overlap*invB/sum;
