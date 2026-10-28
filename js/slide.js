@@ -1,9 +1,15 @@
 
 const images = [
-    "./img/岐阜の絶景グルメ 肉と麺.png",
-    "./img/gourmet2.png",
-    "./img/gourmet3.png"
+    "img/岐阜の絶景グルメ 肉と麺.png",
+    "img/つけ麺.jpg",
+    "img/ラーメントップ画像.jpg"
 ];
+
+const links = [
+    "",
+    "beef.html",
+    "ramen.html"
+]
 
 const texts = [
     "岐阜のグルメ（肉と麺）",
@@ -14,6 +20,7 @@ const texts = [
 let index = 0;
 
 const slideImage = document.getElementById("slide-image");
+const slideImage2 = document.getElementById("slide-image2");
 const slideText = document.getElementById("slide_text");
 
 let isChanging = false;
@@ -26,26 +33,28 @@ function changeSlide(newIndex) {
 
     slideImage.classList.add("fade-out");
 
+    slideImage2.src = images[newIndex];
     setTimeout(() => {
 
         index = newIndex;
-
-        slideImage.src = images[index];
-        slideText.textContent = texts[index];
-
-        if (slideImage.complete) {
-            slideImage.classList.remove("fade-out");
-        } else {
-            slideImage.onload = () => {
-                slideImage.classList.remove("fade-out");
-            };
+        
+        const keyframe = {
+            opacity:[1,0]
+        }
+        const option = {
+            duration: 1000,
         }
 
-        setTimeout(() => {
-            isChanging = false;
-        }, 800);
+        slideImage2.src = images[index];
+        const animation = slideImage.animate(keyframe,option)
 
-    }, 800);
+        animation.finished.then(()=>{
+            slideImage.src = images[index];
+            slideText.textContent = texts[index];
+            isChanging = false
+        })
+
+    }, 1000);
 }
 
 function nextSlide() {

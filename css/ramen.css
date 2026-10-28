@@ -3,19 +3,74 @@ main{
 }
 
 #main-section{
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 #main-section img{
   max-width: 100%;
 }
 
-#card1 .card-img{
-  background-image: url(../img/岐阜タンメン.jpg);
+h1, h2, h3{
+  padding-top: 50px;
+}
+
+h4{
+  padding-top: 40px;
+}
+
+.card-img{
   background-size: cover;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+th{
+  background-color: #f1f1f1;
+}
+
+th,td{
+  padding: 10px;
+  border: 1px solid #c9c9c9;
 }
 
 .card-panel{
   border: 5px solid #000000;
   background-color: #ffe6c684;
+}
+
+.flex-column{
+  display: flex;
+  max-width: 100%;
+  gap: 15px;
+}
+.flex-column img {
+  flex: 1;          /* 2枚の画像を均等な比率（1:1）で広げる */
+  min-width: 0;     /* 【重要】flexコンテナ内で画像が縮小できるようにする */
+  width: 100%;      /* 幅を親（flexアイテムとしての割り当て分）に合わせる */
+  height: auto;     /* 縦横比を崩さない場合 */
+  object-fit: cover; /* 高さを固定したい場合などに便利です */
+}
+
+.spacer{
+  height: 50px;
+}
+
+
+/* 岐阜タンメン */
+#card1 .card-img{
+  background-image: url(../img/岐阜タンメン.jpg);
+  background-position: -40px;
+}
+
+/* りきどう */
+#card2 .card-img{
+  background-image: url(../img/りきどう.jpg);
+}
+
+/* 高山ラーメン */
+#card3 .card-img{
+  background-image: url(../img/高山ラーメン＿まさごそば.jpg);
+  background-position: -50px;
 }
