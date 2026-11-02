@@ -18,4 +18,6 @@ AI生成画像作成  　
 スライドショーの作成  
 コーデックスへの指示  
 ## 参考文献
-参考元サイト
+岐阜タンメン: https://gifu-tanmen.com/  
+つけ麵　本丸: https://tsukemen-honmaru.com/menu.html  
+ラーメン激戦区・高山で出会う、忘れられない一杯「高山ラーメン」: https://www.hidatakayama.or.jp/special/detail_467.html
